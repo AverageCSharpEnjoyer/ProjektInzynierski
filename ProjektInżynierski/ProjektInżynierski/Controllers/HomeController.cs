@@ -23,7 +23,12 @@ namespace ProjektInżynierski.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Decipher()
+        {
+            return View();
+        }
+
+        public IActionResult Cipher()
         {
             return View();
         }
