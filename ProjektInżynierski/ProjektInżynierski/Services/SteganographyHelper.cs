@@ -9,10 +9,17 @@ class SteganographyHelper
 {
     public static string DecryptText(Bitmap original, Bitmap encrypted)
     {
-        return ReverseString(getTextFromDifferentInts(getDifferentInts(original, encrypted)));
+        return ReverseString(GetTextFromDifferentInts(GetDifferentInts(original, encrypted)));
     }
 
-    private static List<int[]> getDifferentInts(Bitmap original, Bitmap encrypted)
+    public static string DecryptText(Image original, Image encrypted)
+    {
+        using var originalBitmap = new Bitmap(original);
+        using var encryptedBitmap = new Bitmap(encrypted);
+        return DecryptText(new Bitmap(original), new Bitmap(encrypted));
+    }
+
+    private static List<int[]> GetDifferentInts(Bitmap original, Bitmap encrypted)
     {
         var result = new List<int[]>();
         for (int i = 0; i < original.Height; i++)
@@ -36,7 +43,7 @@ class SteganographyHelper
         return result;
     }
 
-    private static string getTextFromDifferentInts(List<int[]> differentInts)
+    private static string GetTextFromDifferentInts(List<int[]> differentInts)
     {
         int charValue = 0;
         int bitCounter = 0;
@@ -88,6 +95,15 @@ class SteganographyHelper
             }
         }
         return extractedText;
+    }
+
+    public static Image EncryptText(string text, Image image)
+    {
+        using (var bmp=new Bitmap(image))
+        {
+            var encryptedBmp = EncryptText(text, bmp);
+            return encryptedBmp;
+        }
     }
 
     public static Bitmap EncryptText(string text, Bitmap bmp)
