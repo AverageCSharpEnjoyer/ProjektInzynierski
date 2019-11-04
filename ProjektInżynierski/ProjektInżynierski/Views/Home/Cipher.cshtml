@@ -6,34 +6,21 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <form method="post" onsubmit="allowDownload(); return false;">
+            <form method="post" enctype="multipart/form-data" >
                 <div class="form-group">
                     <label for="exampleFormControlFile1">Obraz:</label>
-                    <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                    <input name="pic" type="file" class="form-control-file" id="exampleFormControlFile1">
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">Tekst Twojej wiadomości:</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <input name="messageText" class="form-control" id="exampleFormControlTextarea1" rows="3" />
                 </div>
-                <button type="submit" class="btn btn-primary">Zaszyfruj</button>
+                <button type="submit" class="btn btn-primary"  >Zaszyfruj</button>
             </form>
         </div>
     </div>
-    <br />
-    <div class="row">
-        <div class="col">
-            <div id="fileToDownload" style="display:none;">
-                <div>
-                    <div>
-                        <label for="exampleFormControlTextarea1">Zaszyfrowane zdjęcie:</label>
-                        <br />
-                        <img src="~/img/no-photo.png" alt="..." class="img-thumbnail">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Pobierz</button>
-                </div>
-            </div>
-        </div>
-
-    </div>
 </div>
+
+<a asp-controller="Home" asp-action="Download">Pobierz</a>
+ 
 
