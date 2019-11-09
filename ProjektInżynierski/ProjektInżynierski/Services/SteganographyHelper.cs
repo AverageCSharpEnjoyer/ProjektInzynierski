@@ -113,7 +113,7 @@ class SteganographyHelper
         Bitmap copyBmp = (Bitmap)bmp.Clone();
         //3 is number for RGB, number of colors in bitmap
         //8 is for byte length in bites
-        int maxForRandomHiding = (int)((bmp.Height * bmp.Width) / (text.Length * 8));
+        int maxForRandomHiding = (int)((bmp.Height * bmp.Width) / (text.Length * 8/3));
 
         byte[] btText;
         btText = System.Text.Encoding.UTF8.GetBytes(text);
@@ -148,7 +148,12 @@ class SteganographyHelper
 
             copyBmp.SetPixel(i, j, Color.FromArgb(R, G, B));
 
-            cellToChange = rnd.Next(1, maxForRandomHiding);
+            cellToChange = 0;
+            while (cellToChange<maxForRandomHiding/1.2||cellToChange==0)
+            {
+                cellToChange = rnd.Next(1, maxForRandomHiding);
+            }
+            
         }
 
 
