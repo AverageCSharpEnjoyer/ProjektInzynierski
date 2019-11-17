@@ -20,15 +20,20 @@
                         <input name="originalFile" type="file" class="custom-file-input" id="originalFile" required>
                         <label class="custom-file-label" for="originalFile">Oryginalny obraz</label>
                     </div>
-                   
+
                 </div>
                 <button type="submit" class="btn btn-primary">Odszyfruj</button>
             </form>
         </div>
     </div>
 
-    <label>@ViewData["decryptedMessage"]</label>
-
+    <hr />
+    <div class="mt-3 row">
+        <div class="col">
+            <h3>Twoja odszyfrowana wiadomość:</h3>
+            <label>@ViewData["decryptedMessage"]</label>
+        </div>
+    </div>
 </div>
 
 

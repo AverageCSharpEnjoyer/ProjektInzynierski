@@ -28,17 +28,18 @@ namespace ProjektInżynierski.Controllers
 
         public IActionResult Index()
         {
-           
-            
+
+
             return View();
         }
 
         public IActionResult Decipher(IFormFile encryptedFile, IFormFile originalFile)
         {
+
             if (encryptedFile != null && originalFile != null)
             {
-                var fileNameOriginal = Path.Combine(_webHosting.WebRootPath,"images", Path.GetFileName(originalFile.FileName));
-                var fileNameEncrypted = Path.Combine(_webHosting.WebRootPath,"images", Path.GetFileName(encryptedFile.FileName));
+                var fileNameOriginal = Path.Combine(_webHosting.WebRootPath, "images", Path.GetFileName(originalFile.FileName));
+                var fileNameEncrypted = Path.Combine(_webHosting.WebRootPath, "images", Path.GetFileName(encryptedFile.FileName));
                 using (FileStream saveFileStream = new FileStream(fileNameOriginal, FileMode.Create))
                 {
                     originalFile.CopyTo(saveFileStream);
@@ -61,34 +62,46 @@ namespace ProjektInżynierski.Controllers
                 ViewData["decryptedMessage"] = decryptedMessage;
             }
 
-
             return View();
         }
 
-        public IActionResult Cipher(  string messageText, IFormFile pic)
+        public IActionResult Cipher(string messageText, IFormFile pic)
         {
-            if (pic != null && messageText != null)
+            var encPath = Path.Combine(_webHosting.WebRootPath, "images", "yourEncryptedImage.png");
+
+            try
+            {
+                System.IO.File.Delete(encPath);
+            }
+            catch
+            {
+                //file not in folder
+            }
+            finally
             {
 
-                // path to save the image file
-                var fileName = Path.Combine(_webHosting.WebRootPath,"images", Path.GetFileName(pic.FileName));
-                using (FileStream saveFileStream = new FileStream(fileName, FileMode.Create))
+                if (pic != null && messageText != null)
                 {
-                    pic.CopyTo(saveFileStream);
+
+                    // path to save the image file
+                    var fileName = Path.Combine(_webHosting.WebRootPath, "images", Path.GetFileName(pic.FileName));
+                    using (FileStream saveFileStream = new FileStream(fileName, FileMode.Create))
+                    {
+                        pic.CopyTo(saveFileStream);
+                    }
+
+                    Bitmap convertedImage = ConvertToBitmap(fileName);
+                    Bitmap encryptedImage = SteganographyHelper.EncryptText(messageText, convertedImage);
+                    convertedImage.Dispose();
+
+                    var fileNameOut = Path.Combine(_webHosting.WebRootPath, "images", "yourEncryptedImage.png");
+                    encryptedImage.Save(fileNameOut, System.Drawing.Imaging.ImageFormat.Png);
+
+                    System.IO.File.Delete(fileName);
+
                 }
 
-                Bitmap convertedImage = ConvertToBitmap(fileName);
-                Bitmap encryptedImage = SteganographyHelper.EncryptText(messageText, convertedImage);
-                convertedImage.Dispose();
-
-                 var fileNameOut = Path.Combine(_webHosting.WebRootPath,"images", "yourEncryptedImage.png");
-                encryptedImage.Save(fileNameOut, System.Drawing.Imaging.ImageFormat.Png);
-
-                System.IO.File.Delete(fileName);
-
             }
-
-            
             return View();
         }
 
@@ -96,10 +109,17 @@ namespace ProjektInżynierski.Controllers
 
         public IActionResult Download()
         {
-
-            string filename = "yourEncryptedImage.png";
-            var file = Path.Combine(_webHosting.WebRootPath,"images", filename);
-            return File(System.IO.File.ReadAllBytes(file), "image/png", filename);
+            try
+            {
+                string filename = "yourEncryptedImage.png";
+                var file = Path.Combine(_webHosting.WebRootPath, "images", filename);
+                return File(System.IO.File.ReadAllBytes(file), "image/png", filename);
+            }
+            catch
+            {
+                //file not in folder
+            }
+            return View();
         }
 
         public Bitmap ConvertToBitmap(string fileName)
@@ -115,7 +135,7 @@ namespace ProjektInżynierski.Controllers
             return bitmap;
         }
 
-        
+
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -124,8 +144,8 @@ namespace ProjektInżynierski.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-  
-      
+
+
 
     }
 }
