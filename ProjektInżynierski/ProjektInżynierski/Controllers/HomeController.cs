@@ -60,7 +60,7 @@ namespace ProjektInżynierski.Controllers
             return View();
         }
 
-        public IActionResult Cipher(string messageText, IFormFile pic)
+        public IActionResult Cipher(  string messageText, IFormFile pic)
         {
             if (pic != null && messageText != null)
             {

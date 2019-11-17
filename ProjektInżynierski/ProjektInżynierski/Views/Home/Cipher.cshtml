@@ -7,19 +7,18 @@
     <h1>@ViewData["Title"]</h1>
     <div class="mt-3 row">
         <div class="col">
-            <form method="post" enctype="multipart/form-data">
-
-                <div class="form-group">
-                    <label for="textArea">Tekst Twojej wiadomości:</label>
-                    <textarea style="resize:none;" maxlength="1000" name="text" class="form-control" id="text" rows="7" placeholder="Wiadomość do zaszyfrowania..."></textarea>
-                    <h6 class="pull-right" id="count_message"></h6>
-                </div>
+            <form method="post" id="cipherForm" enctype="multipart/form-data">
 
                 <div class="form-group">
                     <div class="custom-file">
-                        <input name="fileToEncrypt" type="file" class="custom-file-input" id="fileToEncrypt">
-                        <label class="custom-file-label" for="fileToEncrypt">Wybierz obraz</label>
+                        <input name="pic" type="file" class="custom-file-input" id="exampleFormControlFile1" required>
+                        <label class="custom-file-label" for="exampleFormControlFile1">Wybierz obraz</label>
                     </div>
+                </div>
+
+                <div class="form-group">
+                    <textarea form="cipherForm" style="resize:none;" maxlength="1000" name="text" class="form-control" id="text" rows="7" placeholder="Wiadomość do zaszyfrowania..." required></textarea>
+                    <h6 class="pull-right" id="count_message"></h6>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Zaszyfruj</button>
