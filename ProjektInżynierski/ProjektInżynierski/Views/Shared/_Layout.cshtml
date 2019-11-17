@@ -1,48 +1,72 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Projekt Inżynierski</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Projekt Inżynierski</title>
+
+    <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+
+    <!-- Custom fonts for this template -->
+    <link href="~/lib/fontawesome-free/css/all.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" type="text/css" href="~/css/site.css" />
+
+
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Projekt Inżynierski</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Cipher">Zaszyfruj</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Decipher">Odszyfruj</a>
-                        </li>
-                    </ul>
-                </div>
+
+<body style="background: linear-gradient(to bottom, rgba(22, 22, 22, 0.3) 0%, rgba(22, 22, 22, 0.7) 75%, #161616 100%), url('../img/bg-photo.jpg');">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">Projekt Inżynierski</a>
+
+            <div>
+                <ul class="navbar-nav ml-auto">
+                    <li>
+                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Cipher">Zaszyfruj</a>
+                    </li>
+                    <li>
+                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Decipher">Odszyfruj</a>
+                    </li>
+                </ul>
             </div>
-        </nav>
-    </header>
-    <div class="container">
+
+        </div>
+    </nav>
+
+
+    <!-- Body -->
+    <div class="mt-5 pt-5 container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+
+    <!-- Footer -->
+    <footer class="footer bg-black small text-center text-white-50">
         <div class="container">
-            &copy; 2019 - Projekt Inżynierski - <a asp-area="" asp-controller="Home" asp-action="Privacy">Martyna Zielińska, Gracjan Jasiówka</a>
+            Copyright &copy; Martyna Zielińska, Gracjan Jasiówka - Projekt Inżynierski
         </div>
     </footer>
+
+    <!-- Bootstrap core JavaScript -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="~/lib/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for this template -->
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
+
 </body>
+
 </html>

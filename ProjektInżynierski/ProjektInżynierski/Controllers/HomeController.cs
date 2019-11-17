@@ -35,8 +35,8 @@ namespace ProjektInżynierski.Controllers
         {
             if (encryptedFile != null && originalFile != null)
             {
-                var fileNameOriginal = Path.Combine(_webHosting.WebRootPath, Path.GetFileName(originalFile.FileName));
-                var fileNameEncrypted = Path.Combine(_webHosting.WebRootPath, Path.GetFileName(encryptedFile.FileName));
+                var fileNameOriginal = Path.Combine(_webHosting.WebRootPath,"images", Path.GetFileName(originalFile.FileName));
+                var fileNameEncrypted = Path.Combine(_webHosting.WebRootPath,"images", Path.GetFileName(encryptedFile.FileName));
                 using (FileStream saveFileStream = new FileStream(fileNameOriginal, FileMode.Create))
                 {
                     originalFile.CopyTo(saveFileStream);
@@ -76,7 +76,7 @@ namespace ProjektInżynierski.Controllers
                 Bitmap encryptedImage = SteganographyHelper.EncryptText(messageText, convertedImage);
                 convertedImage.Dispose();
 
-                fileName = Path.Combine(_webHosting.WebRootPath, "encryptedImage.png");
+                fileName = Path.Combine(_webHosting.WebRootPath,"images", "yourEncryptedImage.png");
                 encryptedImage.Save(fileName, System.Drawing.Imaging.ImageFormat.Png);
 
             }
@@ -86,10 +86,12 @@ namespace ProjektInżynierski.Controllers
         }
 
 
+
         public IActionResult Download()
         {
-            string filename = "encryptedImage.png";
-            var file = Path.Combine(_webHosting.WebRootPath, filename);
+
+            string filename = "yourEncryptedImage.png";
+            var file = Path.Combine(_webHosting.WebRootPath,"images", filename);
             return File(System.IO.File.ReadAllBytes(file), "image/png", filename);
         }
 
@@ -114,6 +116,9 @@ namespace ProjektInżynierski.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+  
+      
 
     }
 }
