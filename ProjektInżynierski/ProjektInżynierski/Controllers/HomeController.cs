@@ -28,6 +28,8 @@ namespace ProjektInżynierski.Controllers
 
         public IActionResult Index()
         {
+           
+            
             return View();
         }
 
@@ -53,6 +55,9 @@ namespace ProjektInżynierski.Controllers
                 convertedImageOriginal.Dispose();
                 convertedImageEncrypted.Dispose();
 
+                System.IO.File.Delete(fileNameEncrypted);
+                System.IO.File.Delete(fileNameOriginal);
+
                 ViewData["decryptedMessage"] = decryptedMessage;
             }
 
@@ -66,7 +71,7 @@ namespace ProjektInżynierski.Controllers
             {
 
                 // path to save the image file
-                var fileName = Path.Combine(_webHosting.WebRootPath, Path.GetFileName(pic.FileName));
+                var fileName = Path.Combine(_webHosting.WebRootPath,"images", Path.GetFileName(pic.FileName));
                 using (FileStream saveFileStream = new FileStream(fileName, FileMode.Create))
                 {
                     pic.CopyTo(saveFileStream);
@@ -76,8 +81,10 @@ namespace ProjektInżynierski.Controllers
                 Bitmap encryptedImage = SteganographyHelper.EncryptText(messageText, convertedImage);
                 convertedImage.Dispose();
 
-                fileName = Path.Combine(_webHosting.WebRootPath,"images", "yourEncryptedImage.png");
-                encryptedImage.Save(fileName, System.Drawing.Imaging.ImageFormat.Png);
+                 var fileNameOut = Path.Combine(_webHosting.WebRootPath,"images", "yourEncryptedImage.png");
+                encryptedImage.Save(fileNameOut, System.Drawing.Imaging.ImageFormat.Png);
+
+                System.IO.File.Delete(fileName);
 
             }
 
